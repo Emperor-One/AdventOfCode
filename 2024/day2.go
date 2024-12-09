@@ -24,9 +24,9 @@ func Day2() {
 
 		var mode func([]int) int
 		if inputList[0] > inputList[1] {
-			mode = decreasingPart2
+			mode = checkSafety
 		} else {
-			mode = increasingPart2
+			mode = checkSafety
 		}
 		safeLists += mode(inputList)
 	})
@@ -57,40 +57,17 @@ func increasing(list []int) int {
 }
 
 // part 2
-const (
-	INCREASING = "increasing"
-	DECREASING = "decreasing"
-)
+func checkSafety(list []int) int {
+	safety_inc, safety_dec := 0, 0
 
-func checkSafety(list []int, order string) int {
-	for i := 0; i < len(list)-1; i++ {
-		list = slices.Concat(list[:i], list[i+2:]) 
+	for i := 0; i < len(list); i++ {
+		safety_inc = increasing(slices.Concat(list[:i], list[i+1:]))
+		safety_dec = decreasing(slices.Concat(list[:i], list[i+1:]))
 
-		fmt.Println(list)
-	}
-	return 1
-}
-
-func decreasingPart2(list []int) int {
-
-	for i := 1; i < len(list); i++ {
-		if list[i] >= list[i-1] {
-			return checkSafety(list, DECREASING)
-		} else if (list[i-1] - list[i]) > 3 {
-			return checkSafety(list, DECREASING)
+		if safety_inc == 1 || safety_dec == 1 {
+			fmt.Println(slices.Concat(list[:i], list[i+1:]))
+			return 1
 		}
 	}
-	return 1
-}
-
-func increasingPart2(list []int) int {
-
-	for i := 1; i < len(list); i++ {
-		if list[i] <= list[i-1] {
-			return checkSafety(list, INCREASING)
-		} else if (list[i] - list[i-1]) > 3 {
-			return checkSafety(list, INCREASING)
-		}
-	}
-	return 1
+	return 0
 }

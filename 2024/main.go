@@ -27,7 +27,7 @@ func LoadEnv() {
 func GetInputFile(day int) {
 	_, err := os.Stat(fmt.Sprintf("day%d.txt", day))
 	if err == nil {
-		fmt.Println("File Exists")
+		fmt.Println("File Exists")		
 		return
 	}
 	client := &http.Client{}
@@ -58,7 +58,7 @@ func GetInputFile(day int) {
 }
 
 func PasreInputFile(day int, parseFunc func(line string)) {
-	inputBytes, err := os.ReadFile(fmt.Sprintf("day%d.test", day))
+	inputBytes, err := os.ReadFile(fmt.Sprintf("day%d.txt", day))
 	if err != nil {
 		fmt.Printf("err: %v\n", err)
 	}
@@ -73,6 +73,6 @@ func PasreInputFile(day int, parseFunc func(line string)) {
 
 func main() {
 	LoadEnv()
-	Day1()
+	// Day1()
 	Day2()
 }
