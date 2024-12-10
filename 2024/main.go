@@ -74,5 +74,6 @@ func PasreInputFile(day int, parseFunc func(line string)) {
 func main() {
 	LoadEnv()
 	// Day1()
-	Day2()
+	// Day2()
+	Day3()
 }
