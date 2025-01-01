@@ -24,7 +24,7 @@ func Day3() {
 	NOP := false
 	sum := 0
 	for _, operation := range operations {
-		switch operation{
+		switch operation {
 		case Do:
 			NOP = false
 			continue
