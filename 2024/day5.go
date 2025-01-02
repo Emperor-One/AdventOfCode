@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -39,13 +40,13 @@ func Day5() {
 
 	sum := 0
 	for _, update := range updates {
-		sum += FindGoodUpdate(order, update)
+		sum += FindBadUpdate(order, update)
 	}
 	fmt.Printf("order: %v\n", order)
 	fmt.Printf("sum: %v\n", sum)
 }
 
-func FindGoodUpdate(order map[int][]int, update []string) int {
+func FindBadUpdate(order map[int][]int, update []string) int {
 	isValid := false
 	for i := 0; i < len(update) - 1; i++ {
 		updateInt, _ := strconv.Atoi(update[i])
@@ -57,10 +58,26 @@ func FindGoodUpdate(order map[int][]int, update []string) int {
 			}
 		}
 		if !isValid {
-			return 0
+			return FixBadUpdate(order, update)
 		}
 		isValid = false
 	}
+	return 0
+}
+
+func FixBadUpdate(order map[int][]int, update []string) int {
+	sort.Slice(update, func(i, j int) bool {
+		current, _ := strconv.Atoi(update[i])
+		next, _ := strconv.Atoi(update[j])
+
+		for _, num := range order[current] {
+			if num == next {
+				return true
+			}
+		}
+		return false
+	})
+
 
 	middleIndex := len(update) / 2
 	middlePage, _ := strconv.Atoi(update[middleIndex])

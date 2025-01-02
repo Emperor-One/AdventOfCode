@@ -11,7 +11,11 @@ import (
 	"strings"
 )
 
-func LoadEnv() {
+const (
+	TESTING = false
+)
+
+func loadEnv() {
 	envBytes, err := os.ReadFile(".env")
 	if err != nil {
 		log.Fatalf("could not open env file, %v", err)
@@ -25,9 +29,11 @@ func LoadEnv() {
 }
 
 func GetInputFile(day int) {
+	loadEnv()
+
 	_, err := os.Stat(fmt.Sprintf("day%d.txt", day))
 	if err == nil {
-		fmt.Println("File Exists")		
+		fmt.Println("File Exists")
 		return
 	}
 	client := &http.Client{}
@@ -57,8 +63,17 @@ func GetInputFile(day int) {
 	}
 }
 
-func PasreInputFile(day int, parseFunc func(line string)) {
-	inputBytes, err := os.ReadFile(fmt.Sprintf("day%d.txt", day))
+func ParseInputFile(day int, parseFunc func(line string)) {
+	var (
+		inputBytes []byte
+		err        error
+	)
+	if TESTING {
+		inputBytes, err = os.ReadFile(fmt.Sprintf("day%d.test", day))
+
+	} else{
+		inputBytes, err = os.ReadFile(fmt.Sprintf("day%d.txt", day))
+	}
 	if err != nil {
 		fmt.Printf("err: %v\n", err)
 	}
@@ -72,8 +87,9 @@ func PasreInputFile(day int, parseFunc func(line string)) {
 }
 
 func main() {
-	LoadEnv()
 	// Day1()
 	// Day2()
-	Day3()
+	// Day3()
+	// Day4()
+	Day5()
 }
