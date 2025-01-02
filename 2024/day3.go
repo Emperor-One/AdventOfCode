@@ -12,7 +12,7 @@ func Day3() {
 	operations := make([]string, 0)
 	pattern := regexp.MustCompile(`mul\(\d{1,3}\,\d{1,3}\)|do\(\)|don't\(\)`)
 
-	PasreInputFile(3, func(line string) {
+	ParseInputFile(3, func(line string) {
 		operations = slices.Concat(operations, pattern.FindAllString(line, -1))
 	})
 

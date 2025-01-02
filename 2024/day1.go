@@ -15,7 +15,7 @@ func Day1() (TotalDistance, SimilarityScore int){
 		List2         []int
 	)
 
-	PasreInputFile(1, func(line string) {
+	ParseInputFile(1, func(line string) {
 		lineSlice := strings.Split(line, "   ")
 		left, _ := strconv.Atoi(lineSlice[0])
 		right, _ := strconv.Atoi(lineSlice[1])

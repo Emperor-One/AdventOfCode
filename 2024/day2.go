@@ -10,7 +10,7 @@ import (
 func Day2() {
 	GetInputFile(2)
 	safeLists := 0
-	PasreInputFile(2, func(line string) {
+	ParseInputFile(2, func(line string) {
 		lineSlice := strings.Split(line, " ")
 
 		var inputList []int

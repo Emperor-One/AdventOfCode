@@ -38,7 +38,7 @@ func Day4() {
 
 	grid := [][]string{}
 
-	PasreInputFile(4, func(line string) {
+	ParseInputFile(4, func(line string) {
 		grid = append(grid, strings.Split(line, ""))
 	})
 	count := 0
